@@ -1,0 +1,15 @@
+#big{
+    width: 1520px;
+    height: 750px;
+    background-color: darkseagreen;
+}
+
+
+#min{
+    width: 920px;
+    height: 625px;
+
+    position: absolute;
+    left: 283px;
+    top: 68px;
+}

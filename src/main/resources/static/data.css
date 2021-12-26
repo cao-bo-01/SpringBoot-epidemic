@@ -1,0 +1,73 @@
+/*====================all===================*/
+*{
+    margin: 0;
+    padding: 0;
+}
+
+/*====================Box===================*/
+
+#Box{
+    background-color: darkseagreen;
+    display: flex;
+}
+
+#Box_Center{
+    width: 600px;
+    /* 测试用颜色*/
+    background-color: darkkhaki;
+    /*  测试用高度*/
+    height: 1405px;
+}
+#Box_Left,#Box_Right{
+    flex: 1;
+    /*  测试用高度*/
+    height: 500px;
+}
+#Box_Left{
+    /* 测试用颜色*/
+    /*background-color: yellow;*/
+}
+#Box_Right{
+    /* 测试用颜色*/
+    /*background-color: green;*/
+}
+
+/*=====================left===================*/
+#LeftBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+    /* 测试用颜色*/
+    /*background-color: indigo;*/
+    height: 1405px;;
+}
+.LeftBox{
+    display: block;
+    /* 测试用颜色*/
+    background-color: gold;
+}
+
+/*=====================right===================*/
+#RightBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+    /* 测试用颜色*/
+    /*background-color: indigo;*/
+    height: 1405px;;
+}
+
+.RightBox{
+    display: block;
+    /* 测试用颜色*/
+    background-color: gold;
+}
+
+.img{
+    width: 210px;
+    height: 260px;
+}
