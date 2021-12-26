@@ -20,55 +20,24 @@ import java.util.Map;
 @Component
 public class DataHandeler {
 
-
-
     @Autowired
     private DataService dataService;
 
 
     //    数据来源于 腾讯新闻的新冠肺炎疫情最新动态         解析json
     public static ArrayList<DataBean> selectData() {
-//        public static void main(String[] args) throws Exception {
+
         ArrayList result = new ArrayList();
         String url = "https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5";
-//        StringBuilder builder = new StringBuilder();
-
-
-//        try {
-//            FileReader reader = new FileReader("file.json");
-//            char[] chars = new char[1024];
-//            int reads = 0;
-//            reads = reader.read(chars);
-//            while (reads > 0) {
-//                builder.append(new String(chars, 0, reads));
-//                reads = reader.read(chars);
-//            }
-//            reader.close();
-//        }catch (Exception e){
-//            System.out.println("数据异常");
-//        }
 
         String jsonString = HttpConnUtil.doGet(url);
-//        System.out.println(builder);
-//        String jsonString = builder.toString();
 
-
-        if("".equals(jsonString) || jsonString.length() == 0){
+        if ("".equals(jsonString) || jsonString.length() == 0) {
             System.out.println("jsonString 等于空");
             return result;
         }
 
-        Gson gson = new Gson();
-
-        Map map = gson.fromJson(jsonString, Map.class);
-
-        String data = (String) map.get("data");
-        Map subMap = gson.fromJson(data, Map.class);
-
-        ArrayList areaList = (ArrayList) subMap.get("areaTree");
-        Map dataMap = (Map) areaList.get(0);
-        ArrayList childrenList = (ArrayList) dataMap.get("children");
-
+        ArrayList childrenList = DataGsonLisr.dataGsonList(jsonString);
 
         for (int i = 0; i < childrenList.size(); i++) {
             Map tmp = (Map) childrenList.get(i);
@@ -106,22 +75,17 @@ public class DataHandeler {
     //    数据来源于 丁香医生 全国新冠肺炎疫情地图             解析HTML
     public static ArrayList<DataBean> selectDataBack() {
         System.out.println("我是丁香医生");
-
         String url = "https://ncov.dxy.cn/ncovh5/view/pneumonia";
 
         ArrayList<DataBean> dataBeans = new ArrayList<>();
         String str = HttpConnUtil.doGet(url);
-        if("".equals(str) || str.length() == 0){
+        if ("".equals(str) || str.length() == 0) {
             System.out.println("丁香医生的等于空 ");
             return dataBeans;
         }
 
-
         Document doc = Jsoup.parse(str);
-
         Element oneScript = doc.getElementById("getAreaStat");
-
-
         String data = oneScript.data();
 
 //          TODO 经过测试 数据拿到了
@@ -129,10 +93,7 @@ public class DataHandeler {
 
         String subData = data.substring(data.indexOf("["), data.lastIndexOf("]") + 1);
 
-        Gson gson = new Gson();
-        ArrayList list = gson.fromJson(subData, ArrayList.class);
-
-
+        ArrayList list = new Gson().fromJson(subData, ArrayList.class);
 
         for (int i = 0; i < list.size(); i++) {
             Map map = (Map) list.get(i);
@@ -161,6 +122,7 @@ public class DataHandeler {
     //    邮件发送      项目启动 执行一次
     @Autowired
     MailComponent mailComponent;
+
     //      项目初始化的时候 执行一次的代码 给数据库进行刷新
     @PostConstruct
     public void saveData() {
@@ -169,42 +131,34 @@ public class DataHandeler {
         str = str + "初始化数据 \n";
         System.out.println("初始化数据");
         ArrayList<DataBean> arrayList = null;
-
 //        先从腾讯新闻获取
         arrayList = selectData();
-
 //        如果获取失败 从丁香医生获取
         if (arrayList == null || arrayList.size() == 0) {
-                    str = str + "数据从腾讯新闻获取失败 \n";
-                    System.out.println("teng xun xin wen shibai");
-        }else{
-                    str = str + "数据来自腾讯新闻 \n";
-                    System.out.println("teng xun xin wen 成功");
-                    dataService.remove(null);
-                    dataService.saveBatch(arrayList);
-                    str = str + "数据初始化已完成 \n";
-                    mailComponent.send(str);
-                    return;
+            str = str + "数据从腾讯新闻获取失败 \n";
+            System.out.println("teng xun xin wen shibai");
+        } else {
+            str = str + "数据来自腾讯新闻 \n";
+            System.out.println("teng xun xin wen 成功");
+            dataService.remove(null);
+            dataService.saveBatch(arrayList);
+            str = str + "数据初始化已完成 \n";
+            mailComponent.send(str);
+            return;
         }
-
-
         arrayList = selectDataBack();
-
-        if(arrayList == null && arrayList.size() == 0){
-            str = str +"数据从丁香医生获取失败 \n";
+        if (arrayList == null && arrayList.size() == 0) {
+            str = str + "数据从丁香医生获取失败 \n";
             System.out.println("初始化失败，暂且使用旧数据");
             str = str + "初始化失败，暂且使用旧数据 \n";
-        }else {
-            str = str +"数据来自丁香医生 \n";
+        } else {
+            str = str + "数据来自丁香医生 \n";
             dataService.remove(null);
             dataService.saveBatch(arrayList);
             str = str + "数据初始化已完成 \n";
             mailComponent.send(str);
         }
     }
-
-
-
 
     //    每30分钟刷新数据一次
     @Scheduled(cron = "0 0/30 * * * ? ")
@@ -219,11 +173,11 @@ public class DataHandeler {
         if (arrayList == null) {
             arrayList = selectDataBack();
         }
-        if(arrayList != null){
+        if (arrayList != null) {
             dataService.remove(null);
             dataService.saveBatch(arrayList);
             System.out.println("数据自动更新成功");
-        }else{
+        } else {
             System.out.println("数据自动更新失败");
         }
 

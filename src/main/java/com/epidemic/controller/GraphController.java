@@ -59,7 +59,6 @@ public class GraphController {
     public String graphBar(Model model) {
         List<GraphBarBean> list = GraphHandler.getData();
 
-
         Collections.sort(list);
 
         ArrayList<String> nameList = new ArrayList<>();
@@ -75,7 +74,6 @@ public class GraphController {
         model.addAttribute("fromAbroadList", new Gson().toJson(fromAbroadList));
         return "graphBar";
     }
-
 
 //    地图
     @GetMapping("/map")

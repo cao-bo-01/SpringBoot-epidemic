@@ -1,7 +1,6 @@
 package com.epidemic.controller;
 
 import com.epidemic.service.DataService;
-import com.epidemic.util.MailComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,10 +18,4 @@ public class DataController {
 
         return "data";
     }
-
-
-
-
-
-
 }

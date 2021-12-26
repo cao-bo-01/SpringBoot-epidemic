@@ -13,11 +13,9 @@ import java.util.Map;
 @Component
 public class ErrorView implements ErrorViewResolver {
 
-
     //    邮件发送      项目启动 执行一次
     @Autowired
     MailComponent mailComponent;
-
 
     @Override
     public ModelAndView resolveErrorView(HttpServletRequest request,

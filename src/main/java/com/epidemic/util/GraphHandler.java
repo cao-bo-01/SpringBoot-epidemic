@@ -10,13 +10,13 @@ import java.util.Map;
 //      这个类用来拆解数据 并且封装对象 给业务层提供数据支持    从请求的 响应中 ，获取数据，拆解为对象
 public class GraphHandler {
 
-
     //    TODO  折线图
     public static ArrayList<GraphBean> getGraphData() {
         String urlStr = "https://api.inews.qq.com/newsqa/v1/query/inner/publish/modules/list?" +
                 "modules=chinaDayList,chinaDayAddList,cityStatis,nowConfirmStatis,provinceCompare";
 
         String str = HttpConnUtil.doGet(urlStr);
+
         Gson gson = new Gson();
         Map map = gson.fromJson(str, Map.class);
 
@@ -52,16 +52,8 @@ public class GraphHandler {
         String url = "https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5";
 
         String jsonString = HttpConnUtil.doGet(url);
-        Gson gson = new Gson();
 
-        Map map = gson.fromJson(jsonString, Map.class);
-
-        String data = (String) map.get("data");
-        Map subMap = gson.fromJson(data, Map.class);
-
-        ArrayList areaList = (ArrayList) subMap.get("areaTree");
-        Map dataMap = (Map) areaList.get(0);
-        ArrayList childrenList = (ArrayList) dataMap.get("children");
+        ArrayList childrenList = DataGsonLisr.dataGsonList(jsonString);
 
         ArrayList<GraphBarBean> result = new ArrayList<>();
 
@@ -78,15 +70,8 @@ public class GraphHandler {
                     GraphBarBean bean = new GraphBarBean(name, (int) fromAbroad);
                     result.add(bean);
                 }
-
             }
-
         }
             return result;
         }
-
-
-
-
-
     }

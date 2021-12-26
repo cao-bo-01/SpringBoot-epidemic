@@ -4,7 +4,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-
     <!--    项目版本-->
     <groupId>org.example</groupId>
     <artifactId>SpringBoot-epidemic</artifactId>
@@ -17,35 +16,26 @@
         <version>2.1.8.RELEASE</version>
     </parent>
 
-
-
-<!--    jdk-->
+    <!--    jdk-->
     <properties>
         <java.version>1.8</java.version>
     </properties>
 
-
-
     <dependencies>
 
-
-<!--        thymeleaf-->
+        <!--        thymeleaf-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
-
-
-
-<!--        web-->
+        <!--        web-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-
-<!--        devtools-->
+        <!--        devtools-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -53,17 +43,14 @@
             <optional>true</optional>
         </dependency>
 
-
-
-
-<!--        get 和 set 注解-->
+        <!--        get 和 set 注解-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
 
-<!--测试-->
+        <!--测试-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -76,8 +63,7 @@
             </exclusions>
         </dependency>
 
-
-<!--处理json数据-->
+        <!--处理json数据-->
         <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
@@ -85,9 +71,7 @@
             <version>2.8.6</version>
         </dependency>
 
-
-
-<!--HTML 文件解析-->
+        <!--HTML 文件解析-->
         <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
         <dependency>
             <groupId>org.jsoup</groupId>
@@ -95,18 +79,14 @@
             <version>1.13.1</version>
         </dependency>
 
-
-
-
-<!--启动器-->
+        <!--启动器-->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.1.0</version>
         </dependency>
 
-
-<!--基础包-->
+        <!--基础包-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -114,17 +94,14 @@
         </dependency>
 
 
-<!--增强包         -->
+        <!--增强包         -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.2.0</version>
         </dependency>
 
-
-
-
-<!--邮件有关的-->
+        <!--邮件有关的-->
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
@@ -136,12 +113,9 @@
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
-
     </dependencies>
 
-
-
-<!--SpringBoot项目和maven项目整合插件-->
+    <!--SpringBoot项目和maven项目整合插件-->
     <build>
         <plugins>
             <plugin>

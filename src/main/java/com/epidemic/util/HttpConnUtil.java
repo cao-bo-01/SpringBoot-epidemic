@@ -37,17 +37,13 @@ public class HttpConnUtil {
                 inputStream = conn.getInputStream();
                 reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
                 String line;
-
                 while ((line = reader.readLine()) != null) {
                     builder.append(line);
                 }
-
             }
-
-
         } catch (Exception e) {
-//            e.printStackTrace();
             System.out.println("捕获异常--- 数据没拿到");
+//            e.printStackTrace();
         } finally {
 
             if (inputStream != null) {
@@ -57,8 +53,6 @@ public class HttpConnUtil {
                     e.printStackTrace();
                 }
             }
-
-
             if (reader != null) {
                 try {
                     reader.close();
@@ -66,17 +60,9 @@ public class HttpConnUtil {
                     e.printStackTrace();
                 }
             }
-
 //          关闭连接
             conn.disconnect();
-
-
         }
-
-
         return builder.toString();
-
     }
-
-
 }

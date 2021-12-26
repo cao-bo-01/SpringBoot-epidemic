@@ -26,17 +26,11 @@ public class MailComponent {
         SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
         String time = dateFormat.format(date);
 
-
         message.setText("运行时间：" + time +"\n"+content);
-
         message.setTo("13629101894@139.com");
         message.setFrom("1972746991@qq.com");
 
         mailSender.send(message);
 
-
     }
-
-
-
 }
