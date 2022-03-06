@@ -17,7 +17,8 @@ import java.util.ArrayList;
 import java.util.Map;
 
 //      这个类提供持久化数据  并不能给提供给页面数据 页面的数据是在数据库中查询到的
-@Component
+//@Component
+
 public class DataHandeler {
 
     @Autowired
